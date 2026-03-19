@@ -44,21 +44,6 @@ public class ShoppingCart {
         }
         locale = new Locale(language, country);
         ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", locale);
-//        // ask 1. number
-//        String prompt1 = rb.getString("prompt1");
-//        Scanner sc =  new Scanner(System.in);
-//        System.out.println(prompt1);
-//        double num1 = sc.nextDouble();
-//        // ask 2. number
-//        String prompt2 = rb.getString("prompt2");
-//        Scanner sc2 = new Scanner(System.in);
-//        System.out.println(prompt2);
-//        double num2 = sc2.nextDouble();
-//
-//        // Calculate sum and print it
-//        String sum =  rb.getString("sum");
-//        System.out.println(sum);
-//        System.out.println(addMe(num1, num2));
 
         String wish =  rb.getString("wish");
         String prompt1 = rb.getString("prompt1");
@@ -76,27 +61,16 @@ public class ShoppingCart {
             double amountOfThis =  scanner.nextDouble();
             System.out.println(prompt3);
             double priceOfOne =   scanner.nextDouble();
-            totalPrice += priceOfOne * amountOfThis;
+            totalPrice += calcTotalPrice(priceOfOne, amountOfThis);
             System.out.println(total + totalPrice);
         }
 
 
-
-
-
-
-
-
-
-
     }
 
-    public static double addMe(double a, double b) {
-        return a+b;
+    public static double calcTotalPrice(double price, double amount) {
+        return price * amount;
     }
 
-    public static double subMe(double a, double b) {
-        return a-b;
-    }
 
 }
