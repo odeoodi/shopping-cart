@@ -9,4 +9,4 @@ COPY . /app
 
 RUN mvn package
 
-CMD ["java", "-jar", "target/shopping.jar"]
+CMD ["java", "-jar", "target/shoppingcart.jar"]
