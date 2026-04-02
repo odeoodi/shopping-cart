@@ -26,6 +26,8 @@ public class CartController {
     int amount;
     int newAmount;
     double totalPrice;
+    int totalItems;
+    int cart_id;
 
     private Locale currentLocale =  new Locale("en", "US");
     private Map<String, String> localizedStrings;
@@ -69,7 +71,6 @@ public class CartController {
         //displayLocalTime(locale);
 
         // Apply text direction based on language
-        // TODO: applyTextDirection(locale);
 
     }
 
@@ -105,13 +106,18 @@ public class CartController {
         piecesField.clear();
         itemNumLabel.setText(1 + localizedStrings.getOrDefault("itemNum", ". item:"));
         totalPrice = 0;
-    }
+        cart_id = CartService.saveRecord(0,0, currentLocale.getLanguage());
 
+    }
+    int itemnumber = 0;
     public void onClickAddItem(ActionEvent actionEvent) {
+
+        double itemPrice = 0;
+        int quantity = 0;
         try {
             double price = Double.parseDouble(priceField.getText());
-            int quantity = Integer.parseInt(piecesField.getText());
-            double itemPrice = calcPrice(price, quantity);
+            quantity = Integer.parseInt(piecesField.getText());
+            itemPrice = calcPrice(price, quantity);
             if (itemPrice == -1.0) {
                 throw new NumberFormatException();
             }
@@ -124,9 +130,13 @@ public class CartController {
             } else {
                 addItemButton.setDisable(true);
             }
+            totalItems += quantity;
+            itemnumber += 1;
+            ItemService.saveItem(cart_id, itemnumber, itemPrice, quantity, totalPrice);
         } catch (NumberFormatException e) {
             result.setText(localizedStrings.getOrDefault("error_invalid_input", "Please enter valid numbers"));
         }
+
 
     }
 
@@ -147,4 +157,7 @@ public class CartController {
     }
 
 
+    public void onClickSaveToDB(ActionEvent actionEvent) {
+        CartService.updateRecord(totalItems, totalPrice, cart_id);
+    }
 }

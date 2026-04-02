@@ -8,7 +8,7 @@ public class ShoppingCart extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app.fxml"));
         Scene scene = new Scene(loader.load());
-        stage.setTitle("Shopping cart calculator");
+        stage.setTitle("Ode Ojala: Shopping cart calculator");
         stage.setScene(scene);
         stage.show();
     }

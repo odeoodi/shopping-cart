@@ -26,5 +26,6 @@
       </Label>
       <Button fx:id="scanButton" layoutX="224.0" layoutY="135.0" mnemonicParsing="false" onAction="#onClickStartScan" text="Start Scanning" />
       <Button fx:id="arButton" layoutX="290.0" layoutY="406.0" mnemonicParsing="false" onAction="#onClickChangetoAr" text="AR" />
+      <Button layoutX="67.0" layoutY="266.0" mnemonicParsing="false" onAction="#onClickSaveToDB" text="Save" />
     </children>
 </AnchorPane>
