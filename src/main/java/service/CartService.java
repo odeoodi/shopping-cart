@@ -1,14 +1,19 @@
+package service;
 
-
-import org.mariadb.jdbc.Statement;
+import java.sql.Statement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import connection.DatabaseConnection;
+import exception.DatabaseException;
 
 public class CartService {
+    private CartService() {
+
+    }
     private static String sql =
             "INSERT INTO cart_records(total_items, total_cost, language, created_at) VALUES (?, ?, ?, ?)";
 
@@ -69,13 +74,15 @@ public class CartService {
     public static int getLatestCartId() {
         int cartId = 0;
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT LAST_INSERT_ID()")) {
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT id FROM cart_records ORDER BY id DESC LIMIT 1"
+             )) {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 cartId = rs.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Failed to create cart", e);
         }
 
         return cartId;

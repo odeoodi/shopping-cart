@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="466.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CartController">
+<AnchorPane prefHeight="466.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CartController">
     <children>
         <Button fx:id="enButton" layoutX="135.0" layoutY="406.0" mnemonicParsing="false" onAction="#onClickChangetoEn" text="EN" />
         <Button fx:id="fiButton" layoutX="175.0" layoutY="406.0" mnemonicParsing="false" onAction="#onClickChangetoFi" text="FI" />

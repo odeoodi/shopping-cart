@@ -1,33 +1,41 @@
-import javafx.event.ActionEvent;
+package controller;
+
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import service.ItemService;
 import service.LocalizationService;
+import service.CartService;
 
 import java.util.Locale;
 import java.util.Map;
 
 public class CartController {
-
-    public Button enButton;
-    public Button fiButton;
-    public Button svButton;
-    public Button jaButton;
+    @FXML
     public TextField amountOfAllField;
+    @FXML
     public TextField piecesField;
+    @FXML
     public TextField priceField;
+    @FXML
     public Button arButton;
+    @FXML
     public Button scanButton;
+    @FXML
     public Label itemNumLabel;
+    @FXML
     public Button addItemButton;
+    @FXML
     public Label result;
+    @FXML
     public Label titleLabel;
 
     int amount;
     int newAmount;
     double totalPrice;
     int totalItems;
-    int cart_id;
+    int cartId;
 
     private Locale currentLocale =  new Locale("en", "US");
     private Map<String, String> localizedStrings;
@@ -67,34 +75,30 @@ public class CartController {
         itemNumLabel.setVisible(false);
         result.setText(localizedStrings.getOrDefault("results_def", "Results are shown here"));
 
-        // Update time display with new locale
-        //displayLocalTime(locale);
-
-        // Apply text direction based on language
 
     }
 
-    public void onClickChangetoEn(ActionEvent actionEvent) {
+    public void onClickChangetoEn() {
         setLanguage(new Locale("en", "US"));
     }
 
-    public void onClickChangetoFi(ActionEvent actionEvent) {
+    public void onClickChangetoFi() {
         setLanguage(new Locale("fi", "FI"));
     }
-    public void onClickChangetoSv(ActionEvent actionEvent) {
+    public void onClickChangetoSv() {
         setLanguage(new Locale("sv", "SE"));
     }
 
-    public void onClickChangetoJa(ActionEvent actionEvent) {
+    public void onClickChangetoJa() {
         setLanguage(new Locale("ja", "JP"));
     }
 
-    public void onClickChangetoAr(ActionEvent actionEvent) {
+    public void onClickChangetoAr() {
         setLanguage(new Locale("ar", "IQ"));
 
     }
 
-    public void onClickStartScan(ActionEvent actionEvent) {
+    public void onClickStartScan() {
         amount =  Integer.parseInt(amountOfAllField.getText());
         newAmount = amount-2;
         result.setText((localizedStrings.getOrDefault("addItems", "Add items to see the total price!")));
@@ -106,11 +110,11 @@ public class CartController {
         piecesField.clear();
         itemNumLabel.setText(1 + localizedStrings.getOrDefault("itemNum", ". item:"));
         totalPrice = 0;
-        cart_id = CartService.saveRecord(0,0, currentLocale.getLanguage());
+        cartId = CartService.saveRecord(0,0, currentLocale.getLanguage());
 
     }
     int itemnumber = 0;
-    public void onClickAddItem(ActionEvent actionEvent) {
+    public void onClickAddItem() {
 
         double itemPrice = 0;
         int quantity = 0;
@@ -132,7 +136,7 @@ public class CartController {
             }
             totalItems += quantity;
             itemnumber += 1;
-            ItemService.saveItem(cart_id, itemnumber, itemPrice, quantity, totalPrice);
+            ItemService.saveItem(cartId, itemnumber, itemPrice, quantity, totalPrice);
         } catch (NumberFormatException e) {
             result.setText(localizedStrings.getOrDefault("error_invalid_input", "Please enter valid numbers"));
         }
@@ -157,7 +161,7 @@ public class CartController {
     }
 
 
-    public void onClickSaveToDB(ActionEvent actionEvent) {
-        CartService.updateRecord(totalItems, totalPrice, cart_id);
+    public void onClickSaveToDB() {
+        CartService.updateRecord(totalItems, totalPrice, cartId);
     }
 }

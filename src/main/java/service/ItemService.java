@@ -1,9 +1,13 @@
+package service;
+
+import connection.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 public class ItemService {
+    private ItemService() {}
 
     private static final String INSERT_SQL =
             "INSERT INTO cart_items (cart_record_id, item_number, price, quantity, subtotal) VALUES (?, ?, ?, ?, ?)";
